@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>LOTUS360</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(to bottom right, #065f46, #facc15);
+      color: white;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+    }
+    .form-box {
+      background-color: rgba(0, 0, 0, 0.85);
+      padding: 2rem;
+      border-radius: 1rem;
+      width: 100%;
+      max-width: 400px;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
+      animation: slideUp 0.8s ease-out;
+    }
+    .logo {
+      font-size: 2.2rem;
+      font-weight: bold;
+      text-align: center;
+      margin-bottom: 0.25rem;
+    }
+    .logo span:first-child { color: white; }
+    .logo span:last-child { color: #facc15; }
+    .subline {
+      text-align: center;
+      font-size: 0.95rem;
+      color: #ccc;
+      margin-bottom: 1.5rem;
+    }
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 0.8rem;
+    }
+    input, select {
+      padding: 0.5rem 0.75rem;
+      border: none;
+      border-radius: 6px;
+      background-color: #333;
+      color: white;
+      font-size: 0.9rem;
+    }
+    button {
+      padding: 0.6rem;
+      background-color: #facc15;
+      color: black;
+      font-weight: bold;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    button:hover {
+      background-color: #eab308;
+    }
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+  <div class="form-box">
+    <div class="logo">
+      <span>LOTUS</span><span>360</span>
+    </div>
+    <div class="subline">India's No.1 Gaming Exchange</div>
+    <form id="lotusForm">
+      <input type="text" name="name" placeholder="Name" required />
+      <input type="text" name="mobile" placeholder="Mobile No" pattern="[6-9][0-9]{9}" title="Enter a valid 10-digit Indian mobile number" required />
+      <input type="password" name="password" placeholder="Password" minlength="6" title="Minimum 6 characters" required />
+      <select name="platform" required>
+        <option value="">Select Platform</option>
+        <option value="LOTUSBOOK">LOTUSBOOK</option>
+        <option value="DIAMOND EXCH">DIAMOND EXCH</option>
+        <option value="PLAYPROFIT">PLAYPROFIT</option>
+      </select>
+      <input type="text" name="referral" placeholder="Referral Code (optional)" />
+      <button type="submit">Register</button>
+    </form>
+  </div>
+
+  <script>
+    const form = document.getElementById('lotusForm');
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbyvxV43tYaUJiR8pO5lmgTvIwZRh7KKztDClCfc5ZIlhhX6dBnBaZOof-ivdj6EVPqAdA/exec'; // Replace this
+
+    form.addEventListener('submit', e => {
+      e.preventDefault();
+      if (!form.reportValidity()) return; // enforce browser validation
+
+      fetch(scriptURL, { method: 'POST', body: new FormData(form) })
+        .then(response => {
+          alert('Registration successful!');
+          form.reset();
+        })
+        .catch(error => {
+          alert('Error! Please try again later.');
+          console.error('Error!', error.message);
+        });
+    });
+  </script>
+</body>
+</html>
